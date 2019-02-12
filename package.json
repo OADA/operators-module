@@ -1,0 +1,22 @@
+{
+  "name": "@oada/operators-module",
+  "version": "0.0.1",
+  "description": "cerebral module for implementing operators from an oada-compliant server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src --out-dir ./ --presets=env",
+    "prepare": "npm run build",
+    "build-watch": "babel --watch src --out-dir ./ --presets=env"
+  },
+  "author": "OADA",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@oada/cerebral-module": "^2.1.1",
+    "Promise": "^1.0.5",
+    "cerebral": "^4.2.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0"
+  }
+}

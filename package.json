@@ -1,13 +1,13 @@
 {
   "name": "@oada/operators-module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "cerebral module for implementing operators from an oada-compliant server",
-  "main": "index.js",
+  "main": "./modules/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel src --out-dir ./ --presets=env",
+    "build": "babel src --out-dir ./modules --presets=env",
     "prepare": "npm run build",
-    "build-watch": "babel --watch src --out-dir ./ --presets=env"
+    "build-watch": "babel --watch src --out-dir ./modules --presets=env"
   },
   "author": "OADA",
   "license": "Apache-2.0",

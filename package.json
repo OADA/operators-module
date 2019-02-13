@@ -1,22 +1,40 @@
 {
   "name": "@oada/operators-module",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "cerebral module for implementing operators from an oada-compliant server",
   "main": "./modules/index.js",
+	"keywords": "operators",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src --out-dir ./modules --presets=env",
     "prepare": "npm run build",
-    "build-watch": "babel --watch src --out-dir ./modules --presets=env"
+    "build-watch": "babel --watch src --out-dir ./modules --presets=env",
+    "build-watch-component": "webpack"
   },
   "author": "OADA",
   "license": "Apache-2.0",
+  "peerDependencies": {
+    "react": "^16.2.0",
+    "@material-ui/core": "^1.1.0",
+    "material-ui": "^1.0.0-beta.34"
+  },
   "dependencies": {
+    "@cerebral/react": "^3.2.2",
+    "@material-ui/core": "^1.1.0",
     "@oada/cerebral-module": "^2.1.1",
     "Promise": "^1.0.5",
-    "cerebral": "^4.2.2"
+    "cerebral": "^4.2.2",
+    "material-ui": "^1.0.0-beta.34",
+    "react": "^16.2.0",
+    "webpack": "^4.29.3"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0"
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "webpack-cli": "^3.2.3"
   }
 }

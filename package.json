@@ -1,6 +1,6 @@
 {
   "name": "@oada/operators-module",
-  "version": "0.0.5",
+  "version": "0.1.5",
   "description": "cerebral module for implementing operators from an oada-compliant server",
   "main": "./modules/index.js",
 	"keywords": "operators",
@@ -16,7 +16,8 @@
   "peerDependencies": {
     "react": "^16.2.0",
     "@material-ui/core": "^1.1.0",
-    "material-ui": "^1.0.0-beta.34"
+    "material-ui": "^1.0.0-beta.34",
+		"uuid": "^3.2.1"
   },
   "dependencies": {
     "@cerebral/react": "^3.2.2",
@@ -26,7 +27,8 @@
     "cerebral": "^4.2.2",
     "material-ui": "^1.0.0-beta.34",
     "react": "^16.2.0",
-    "webpack": "^4.29.3"
+    "webpack": "^4.29.3",
+		"uuid": "^3.2.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

@@ -3,15 +3,23 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.createNewOperator = exports.updateOperator = exports.deleteOperator = exports.selectOperator = exports.init = exports.getFetchWatch = exports.setFetchWatch = exports.fetch = undefined;
+exports.handleWatchUpdate = exports.saveEditedOperator = exports.putOperator = exports.disableNewOperatorButton = exports.addOperatorClicked = exports.createNewOperator = exports.updateOperator = exports.deleteOperator = exports.selectOperator = exports.init = exports.getFetchWatch = exports.setFetchWatch = exports.fetch = undefined;
 
 var _templateObject = _taggedTemplateLiteral(["oada.", ".bookmarks.operators"], ["oada.", ".bookmarks.operators"]),
     _templateObject2 = _taggedTemplateLiteral(["connection_id"], ["connection_id"]),
     _templateObject3 = _taggedTemplateLiteral(["operators.connection_id"], ["operators.connection_id"]),
     _templateObject4 = _taggedTemplateLiteral(["operators.loading"], ["operators.loading"]),
-    _templateObject5 = _taggedTemplateLiteral(["type"], ["type"]);
+    _templateObject5 = _taggedTemplateLiteral(["type"], ["type"]),
+    _templateObject6 = _taggedTemplateLiteral(["operators.editing"], ["operators.editing"]),
+    _templateObject7 = _taggedTemplateLiteral(["operators.newOperatorDisabled"], ["operators.newOperatorDisabled"]),
+    _templateObject8 = _taggedTemplateLiteral(["item"], ["item"]),
+    _templateObject9 = _taggedTemplateLiteral(["operators.new_operator"], ["operators.new_operator"]);
 
 exports.mapOadaToRecords = mapOadaToRecords;
+exports.addNewOperator = addNewOperator;
+exports.lastNameTextChanged = lastNameTextChanged;
+exports.firstNameTextChanged = firstNameTextChanged;
+exports.cancelNewOperator = cancelNewOperator;
 
 var _cerebral = require("cerebral");
 
@@ -164,3 +172,125 @@ var createNewOperator = exports.createNewOperator = (0, _cerebral.sequence)("ope
     tree: tree
   };
 }, _sequences2.default.put, fetch]);
+
+var addOperatorClicked = exports.addOperatorClicked = [addNewOperator, (0, _operators.set)((0, _tags.state)(_templateObject6), true)];
+
+/**
+ * Creates the template for the operator record with a random UUID
+ * @returns {{id: *, firstName: *, lastName: *}}}
+ */
+function createOperatorRecord(_firstName, _lastName) {
+  return {
+    id: uuid(),
+    firstName: _firstName || "",
+    lastName: _lastName || "",
+    label: _firstName || ""
+  };
+} //createOperatorRecord
+
+
+function createOperatorRequest(_ref9) {
+  var props = _ref9.props,
+      state = _ref9.state;
+
+  var requests = [];
+
+  requests.push({
+    connection_id: state.get('operators.connection_id'),
+    data: props.operator,
+    path: "/bookmarks/operators/" + props.id,
+    tree: tree
+  });
+
+  return { requests: requests };
+}
+
+var disableNewOperatorButton = exports.disableNewOperatorButton = [(0, _operators.set)((0, _tags.state)(_templateObject7), true)];
+
+var putOperator = exports.putOperator = [createOperator, createOperatorRequest, _sequences2.default.put, disableNewOperatorButton];
+
+var saveEditedOperator = exports.saveEditedOperator = [(0, _operators.set)((0, _tags.props)(_templateObject8), (0, _tags.state)(_templateObject9)), (0, _operators.set)((0, _tags.state)(_templateObject6), false), putOperator, (0, _operators.set)((0, _tags.state)(_templateObject9), {})];
+
+/**
+ *
+ * @param props
+ * @param state
+ * @returns {{item: any}}
+ */
+function addNewOperator(_ref10) {
+  var props = _ref10.props,
+      state = _ref10.state;
+
+  var _firstName = state.get('operators.new_operator.firstName');
+  var _lastName = state.get('operators.new_operator.lastName');
+  var operator = createOperatorRecord(_firstName, _lastName);
+  state.set("operators.new_operator", operator);
+
+  return { operator: operator };
+}
+
+/**
+ * it verifies that firstName and lastName have some value in the textbox
+ * (it does not allow empty values)
+ * @param props
+ * @param state
+ */
+function validateNewOperatorButton(_ref11) {
+  var props = _ref11.props,
+      state = _ref11.state;
+
+  var firstName = state.get("operators.new_operator.firstName");
+  var lastName = state.get("operators.new_operator.lastName");
+  if (firstName && lastName && firstName.length > 0 && lastName.length > 0) {
+    state.set('operators.newOperatorDisabled', false);
+  } else {
+    state.set('operators.newOperatorDisabled', true);
+  }
+}
+
+/**
+ * Farm's input text changed
+ * @param props
+ * @param state
+ */
+function lastNameTextChanged(_ref12) {
+  var props = _ref12.props,
+      state = _ref12.state;
+
+  console.log("--> lastNameTextChanges ", props.value);
+  state.set("operators.new_operator.lastName", props.value);
+  state.set('operators.new_operator.suggestionsOpen', true);
+  validateNewOperatorButton({ props: props, state: state });
+}
+
+/**
+ * Field's input text changed
+ * @param props
+ * @param state
+ */
+function firstNameTextChanged(_ref13) {
+  var props = _ref13.props,
+      state = _ref13.state;
+
+  state.set("operators.new_operator.firstName", props.value);
+  state.set('operators.new_operator.field.suggestionsOpen', true);
+  validateNewOperatorButton({ props: props, state: state });
+}
+
+/**
+ * Handles updates in the resource
+ * @type {*[]}
+ */
+var handleWatchUpdate = exports.handleWatchUpdate = (0, _cerebral.sequence)('operators.handleWatchUpdate', [function () {
+  console.log('--> operators.handlingWatchUpdate');
+}, mapOadaToRecords]);
+
+function cancelNewOperator(_ref14) {
+  var props = _ref14.props,
+      state = _ref14.state;
+
+  console.log("--> Canceling new operator");
+  state.set('operators.editing', false);
+  state.unset('operators.new_operator');
+  state.unset('operators.selectedId');
+}

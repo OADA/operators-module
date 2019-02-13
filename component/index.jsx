@@ -197,4 +197,3 @@ exports.default = (0, _react3.connect)({
   saveEdited: (0, _tags.signal)(_templateObject10),
   cancelNewOperator: (0, _tags.signal)(_templateObject11)
 }, (0, _styles.withStyles)(styles, { withTheme: true })(EditOperatorDrawer));
-

@@ -137,3 +137,127 @@ export const createNewOperator = sequence("operators.createNewOperator", [
   oada.put,
   fetch
 ]);
+
+export var addOperatorClicked = [
+	addNewOperator,
+	set(state`operators.editing`, true),
+];
+
+
+/**
+ * Creates the template for the operator record with a random UUID
+ * @returns {{id: *, firstName: *, lastName: *}}}
+ */
+function createOperatorRecord(_firstName, _lastName){
+  return {
+    id: uuid(),
+    firstName: _firstName || "",
+    lastName: _lastName || "",
+    label: _firstName || ""
+  };
+}//createOperatorRecord
+
+
+function createOperatorRequest({props, state}){
+  let requests = [];
+
+  requests.push({
+    connection_id: state.get('operators.connection_id'),
+    data: props.operator,
+    path: `/bookmarks/operators/${props.id}`,
+    tree
+  });
+
+  return { requests };
+}
+
+export var disableNewOperatorButton = [
+  set(state`operators.newOperatorDisabled`, true)
+];
+
+export const putOperator = [
+  createOperator,
+  createOperatorRequest,
+  oada.put,
+  disableNewOperatorButton
+];
+
+export var saveEditedOperator = [
+  set(props`item`, state`operators.new_operator`),
+  set(state`operators.editing`, false),
+  putOperator,
+  set(state`operators.new_operator`, {}),
+];
+
+/**
+ *
+ * @param props
+ * @param state
+ * @returns {{item: any}}
+ */
+export function addNewOperator({props, state}){
+  let _firstName = state.get('operators.new_operator.firstName');
+  let _lastName = state.get('operators.new_operator.lastName');
+  let operator = createOperatorRecord(_firstName, _lastName);
+  state.set(`operators.new_operator`, operator);
+
+  return {operator};
+}
+
+/**
+ * it verifies that firstName and lastName have some value in the textbox
+ * (it does not allow empty values)
+ * @param props
+ * @param state
+ */
+function validateNewOperatorButton({props, state}){
+  let firstName = state.get(`operators.new_operator.firstName`);
+  let lastName = state.get(`operators.new_operator.lastName`);
+  if(firstName && lastName && firstName.length > 0 && lastName.length > 0){
+    state.set('operators.newOperatorDisabled', false);
+  }
+  else {
+    state.set('operators.newOperatorDisabled', true);
+  }
+}
+
+/**
+ * Farm's input text changed
+ * @param props
+ * @param state
+ */
+export function lastNameTextChanged({props, state}) {
+  console.log("--> lastNameTextChanges ", props.value);
+  state.set(`operators.new_operator.lastName`, props.value);
+  state.set('operators.new_operator.suggestionsOpen', true);
+  validateNewOperatorButton({props, state});
+}
+
+/**
+ * Field's input text changed
+ * @param props
+ * @param state
+ */
+export function firstNameTextChanged({props, state}) {
+  state.set(`operators.new_operator.firstName`, props.value);
+  state.set('operators.new_operator.field.suggestionsOpen', true);
+  validateNewOperatorButton({props, state});
+}
+
+/**
+ * Handles updates in the resource
+ * @type {*[]}
+ */
+export const handleWatchUpdate =  sequence('operators.handleWatchUpdate', [
+  () => { console.log('--> operators.handlingWatchUpdate') },
+  mapOadaToRecords
+]);
+
+export function cancelNewOperator({props, state}) {
+  console.log("--> Canceling new operator");
+  state.set('operators.editing', false);
+  state.unset('operators.new_operator');
+  state.unset('operators.selectedId');
+}
+
+

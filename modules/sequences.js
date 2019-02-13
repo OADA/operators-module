@@ -188,7 +188,6 @@ function createOperatorRecord(_firstName, _lastName) {
   };
 } //createOperatorRecord
 
-
 function createOperatorRequest(_ref9) {
   var props = _ref9.props,
       state = _ref9.state;
@@ -212,7 +211,7 @@ var putOperator = exports.putOperator = [createOperator, createOperatorRequest, 
 var saveEditedOperator = exports.saveEditedOperator = [(0, _operators.set)((0, _tags.props)(_templateObject8), (0, _tags.state)(_templateObject9)), (0, _operators.set)((0, _tags.state)(_templateObject6), false), putOperator, (0, _operators.set)((0, _tags.state)(_templateObject9), {})];
 
 /**
- *
+ * Sets initial value for the new operator
  * @param props
  * @param state
  * @returns {{item: any}}
@@ -249,7 +248,7 @@ function validateNewOperatorButton(_ref11) {
 }
 
 /**
- * Farm's input text changed
+ * LastName's input text changed
  * @param props
  * @param state
  */
@@ -257,14 +256,13 @@ function lastNameTextChanged(_ref12) {
   var props = _ref12.props,
       state = _ref12.state;
 
-  console.log("--> lastNameTextChanges ", props.value);
   state.set("operators.new_operator.lastName", props.value);
   state.set('operators.new_operator.suggestionsOpen', true);
   validateNewOperatorButton({ props: props, state: state });
 }
 
 /**
- * Field's input text changed
+ * Operator's input text changed
  * @param props
  * @param state
  */
@@ -273,7 +271,7 @@ function firstNameTextChanged(_ref13) {
       state = _ref13.state;
 
   state.set("operators.new_operator.firstName", props.value);
-  state.set('operators.new_operator.field.suggestionsOpen', true);
+  state.set('operators.new_operator.suggestionsOpen', true);
   validateNewOperatorButton({ props: props, state: state });
 }
 
@@ -289,7 +287,6 @@ function cancelNewOperator(_ref14) {
   var props = _ref14.props,
       state = _ref14.state;
 
-  console.log("--> Canceling new operator");
   state.set('operators.editing', false);
   state.unset('operators.new_operator');
   state.unset('operators.selectedId');

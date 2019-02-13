@@ -66,7 +66,7 @@ export const selectOperator = sequence("operators.selectOperator", []);
 
 export function mapOadaToRecords({ props, state }) {
   let connection_id = state.get('operators.connection_id');
-  let operators = state.get('operators.records');
+  let operators     = state.get('operators.records');
 
   return Promise.map(Object.keys(operators || {}), (operator) => {
     return state.unset(`operators.records.${operator}`)
@@ -143,7 +143,6 @@ export var addOperatorClicked = [
 	set(state`operators.editing`, true),
 ];
 
-
 /**
  * Creates the template for the operator record with a random UUID
  * @returns {{id: *, firstName: *, lastName: *}}}
@@ -152,19 +151,18 @@ function createOperatorRecord(_firstName, _lastName){
   return {
     id: uuid(),
     firstName: _firstName || "",
-    lastName: _lastName || "",
-    label: _firstName || ""
+    lastName:  _lastName  || "",
+    label:     _firstName || ""
   };
 }//createOperatorRecord
-
 
 function createOperatorRequest({props, state}){
   let requests = [];
 
   requests.push({
     connection_id: state.get('operators.connection_id'),
-    data: props.operator,
-    path: `/bookmarks/operators/${props.id}`,
+    data:          props.operator,
+    path:          `/bookmarks/operators/${props.id}`,
     tree
   });
 
@@ -190,15 +188,15 @@ export var saveEditedOperator = [
 ];
 
 /**
- *
+ * Sets initial value for the new operator
  * @param props
  * @param state
  * @returns {{item: any}}
  */
 export function addNewOperator({props, state}){
   let _firstName = state.get('operators.new_operator.firstName');
-  let _lastName = state.get('operators.new_operator.lastName');
-  let operator = createOperatorRecord(_firstName, _lastName);
+  let _lastName  = state.get('operators.new_operator.lastName');
+  let operator   = createOperatorRecord(_firstName, _lastName);
   state.set(`operators.new_operator`, operator);
 
   return {operator};
@@ -222,25 +220,24 @@ function validateNewOperatorButton({props, state}){
 }
 
 /**
- * Farm's input text changed
+ * LastName's input text changed
  * @param props
  * @param state
  */
 export function lastNameTextChanged({props, state}) {
-  console.log("--> lastNameTextChanges ", props.value);
   state.set(`operators.new_operator.lastName`, props.value);
   state.set('operators.new_operator.suggestionsOpen', true);
   validateNewOperatorButton({props, state});
 }
 
 /**
- * Field's input text changed
+ * Operator's input text changed
  * @param props
  * @param state
  */
 export function firstNameTextChanged({props, state}) {
   state.set(`operators.new_operator.firstName`, props.value);
-  state.set('operators.new_operator.field.suggestionsOpen', true);
+  state.set('operators.new_operator.suggestionsOpen', true);
   validateNewOperatorButton({props, state});
 }
 
@@ -254,7 +251,6 @@ export const handleWatchUpdate =  sequence('operators.handleWatchUpdate', [
 ]);
 
 export function cancelNewOperator({props, state}) {
-  console.log("--> Canceling new operator");
   state.set('operators.editing', false);
   state.unset('operators.new_operator');
   state.unset('operators.selectedId');

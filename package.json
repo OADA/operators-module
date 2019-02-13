@@ -1,6 +1,6 @@
 {
   "name": "@oada/operators-module",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "cerebral module for implementing operators from an oada-compliant server",
   "main": "./modules/index.js",
 	"keywords": "operators",

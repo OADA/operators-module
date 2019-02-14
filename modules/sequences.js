@@ -35,6 +35,10 @@ var _sequences = require("@oada/cerebral-module/sequences");
 
 var _sequences2 = _interopRequireDefault(_sequences);
 
+var _uuid = require("uuid");
+
+var _uuid2 = _interopRequireDefault(_uuid);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
@@ -181,7 +185,7 @@ var addOperatorClicked = exports.addOperatorClicked = [addNewOperator, (0, _oper
  */
 function createOperatorRecord(_firstName, _lastName) {
   return {
-    id: uuid(),
+    id: (0, _uuid2.default)(),
     firstName: _firstName || "",
     lastName: _lastName || "",
     label: _firstName || ""
@@ -288,6 +292,7 @@ function cancelNewOperator(_ref14) {
       state = _ref14.state;
 
   state.set('operators.editing', false);
+  state.set('operators.newOperatorDisabled', true);
   state.unset('operators.new_operator');
   state.unset('operators.selectedId');
 }

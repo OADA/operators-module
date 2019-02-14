@@ -3,7 +3,8 @@ import { set, when } from "cerebral/operators";
 import { state, props } from "cerebral/tags";
 import Promise from "bluebird";
 import oada from "@oada/cerebral-module/sequences";
-
+import uuid from 'uuid'
+;
 let signals = [];
 const _TYPE = "application/vnd.oada.yield.1+json";
 
@@ -252,6 +253,7 @@ export const handleWatchUpdate =  sequence('operators.handleWatchUpdate', [
 
 export function cancelNewOperator({props, state}) {
   state.set('operators.editing', false);
+  state.set('operators.newOperatorDisabled', true);
   state.unset('operators.new_operator');
   state.unset('operators.selectedId');
 }

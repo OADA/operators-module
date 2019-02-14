@@ -16,7 +16,11 @@ exports.default = (0, _cerebral.Module)({
 
 	state: {
 		records: {},
-		loading: true
+		loading: true,
+		connection_id: "",
+		new_operator: {},
+		editing: false,
+		newOperatorDisabled: true
 	},
 
 	signals: signals

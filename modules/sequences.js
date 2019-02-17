@@ -20,6 +20,7 @@ exports.addNewOperator = addNewOperator;
 exports.lastNameTextChanged = lastNameTextChanged;
 exports.firstNameTextChanged = firstNameTextChanged;
 exports.cancelNewOperator = cancelNewOperator;
+exports.setCurrentOperator = setCurrentOperator;
 
 var _cerebral = require("cerebral");
 
@@ -295,4 +296,13 @@ function cancelNewOperator(_ref14) {
   state.set('operators.newOperatorDisabled', true);
   state.unset('operators.new_operator');
   state.unset('operators.selectedId');
+}
+
+function setCurrentOperator(_ref15) {
+  var props = _ref15.props,
+      state = _ref15.state;
+
+  if (props.operator) {
+    state.set("operators.current", props.operator);
+  }
 }

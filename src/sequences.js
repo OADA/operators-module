@@ -258,4 +258,8 @@ export function cancelNewOperator({props, state}) {
   state.unset('operators.selectedId');
 }
 
-
+export function setCurrentOperator({props, state}){
+  if(props.operator){
+		state.set("operators.current", props.operator);
+	}
+}

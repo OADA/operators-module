@@ -75,7 +75,7 @@ var OperatorsList = function (_React$Component) {
 				_TextField2.default,
 				{
 					select: true,
-					fullwidth: true,
+					fullwidth: "true",
 					className: classes.textField,
 					label: "Operator",
 					InputLabelProps: {

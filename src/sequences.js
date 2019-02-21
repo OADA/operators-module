@@ -4,7 +4,6 @@ import { state, props } from "cerebral/tags";
 import Promise from "bluebird";
 import oada from "@oada/cerebral-module/sequences";
 import uuid from 'uuid'
-;
 let signals = [];
 const _TYPE = "application/vnd.oada.yield.1+json";
 
@@ -44,23 +43,23 @@ export const fetch = sequence("operators.fetch", [
   }
 ]);
 
-export const setFetchWatch = sequence("operators.updateFetchWatch", [
+export const setFetchWatch = sequence("operators.setFetchWatch", [
   ({ props }) => {
     signals = props.signals;
   }
 ]);
 
-export const getFetchWatch = sequence("operators.updateFetchWatch", [
+export const getFetchWatch = sequence("operators.getFetchWatch", [
   ({ props }) => ({ signals })
 ]);
 
 export const init = sequence("operators.init", [
-  oada.connect,
-  set(state`operators.connection_id`, props`connection_id`),
-  set(state`operators.loading`, true),
-  fetch,
-  set(state`operators.loading`, false),
-  set(props`type`, "operators")
+//oada.connect,
+  //set(state`operators.connection_id`, props`connection_id`),
+  //set(state`operators.loading`, true),
+  //fetch,
+  //set(state`operators.loading`, false),
+  //  set(props`type`, "operators")
 ]);
 
 export const selectOperator = sequence("operators.selectOperator", []);

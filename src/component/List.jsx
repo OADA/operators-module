@@ -2,9 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "@cerebral/react";
 import { state, signal } from "cerebral/tags";
-import TextField from "material-ui/TextField";
-import { MenuItem } from "material-ui/Menu";
-import { withStyles } from "material-ui/styles";
+import {
+  TextField,
+  MenuItem
+} from "@material-ui/core"
+import { withStyles } from "@material-ui/styles";
 
 const styles = theme => ({
 	textField: {

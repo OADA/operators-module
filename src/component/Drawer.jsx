@@ -1,8 +1,8 @@
 import React from "react";
-import { withStyles } from "material-ui/styles";
+import { withStyles } from "@material-ui/styles";
 import { connect } from "@cerebral/react";
 import { state, signal } from "cerebral/tags";
-import { TextField, Button } from "material-ui";
+import { TextField, Button } from "@material-ui/core";
 
 const styles = theme => ({
   drawerHeader: {

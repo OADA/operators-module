@@ -1,5 +1,6 @@
 import { Module } from 'cerebral'
 import * as signals from './sequences'
+console.log('signals', signals);
 export default Module({
 
 	state : {

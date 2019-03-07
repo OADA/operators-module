@@ -102,7 +102,8 @@ export const deleteOperator = sequence("operators.deleteOperator", [
     connection_id: state.get("operators.connection_id"),
     tree,
     path: "/bookmarks/operators"
-  })
+  }),
+	oada.delete
 ]);
 
 export const updateOperator = sequence("operators.updateOperator", [

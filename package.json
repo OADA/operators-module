@@ -22,7 +22,7 @@
   "dependencies": {
     "@cerebral/react": "^3.2.2",
     "@material-ui/core": "^1.1.0",
-    "@oada/cerebral-module": "^2.1.1",
+    "@oada/cerebral-module": "^3.0.0",
     "Promise": "^1.0.5",
     "cerebral": "^4.2.2",
     "material-ui": "^1.0.0-beta.34",
